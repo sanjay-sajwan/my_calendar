@@ -1,14 +1,14 @@
 import moment from "moment";
 
-const getDaysArray = (start: Date, end: Date): Date[] => {
-  const arr: Date[] = [];
+const getDaysArray = (start, end) => {
+  const arr = [];
   for (const dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
     arr.push(new Date(dt));
   }
   return arr;
 };
 
-export const daysBefore: { [key: string]: number } = {
+export const daysBefore = {
   monday: 0,
   tuesday: 1,
   wednesday: 2,
@@ -18,26 +18,22 @@ export const daysBefore: { [key: string]: number } = {
   sunday: 6,
 };
 
-const daysMonth = (date: Date): Date[] => {
+const daysMonth = (date) => {
   return getDaysArray(firstDayOfMonth(date), lastDayOfMonth(date));
 };
 
-const dayOfWeek = (date: Date): keyof typeof daysBefore => {
+const dayOfWeek = (date) => {
   return date.toLocaleDateString("ISO", { weekday: "long" }).toLowerCase(); // STRING DOES NOT RECOGNIZE KEYS AS VALID ONES
 };
 
-const firstDayOfMonth = (date: Date): Date => {
+const firstDayOfMonth = (date) => {
   return new Date(date.getFullYear(), date.getMonth(), 1);
 };
-const lastDayOfMonth = (date: Date): Date => {
+const lastDayOfMonth = (date) => {
   return new Date(date.getFullYear(), date.getMonth() + 1, 0);
 };
 
-const dateMove = (
-  date: Date,
-  numberOfDays: number,
-  direction: "back" | "forward"
-): Date => {
+const dateMove = (date, numberOfDays, direction) => {
   return direction === "back"
     ? // @ts-ignore
       new Date(moment(date).subtract(numberOfDays, "days"))
@@ -45,7 +41,7 @@ const dateMove = (
       new Date(moment(date).add(numberOfDays, "days"));
 };
 
-const daysMonthBefore = (date: Date): Date[] => {
+const daysMonthBefore = (date) => {
   const firstDateMonth = firstDayOfMonth(date);
   const dayOfTheWeek = dayOfWeek(firstDateMonth);
   const dateBefore = dateMove(firstDateMonth, daysBefore[dayOfTheWeek], "back");
@@ -56,7 +52,7 @@ const daysMonthBefore = (date: Date): Date[] => {
   return daysBack;
 };
 
-const daysMonthAfter = (date: Date): Date[] => {
+const daysMonthAfter = (date) => {
   const daysBefore = daysMonthBefore(date).length;
   const daysOfTheMonth = lastDayOfMonth(date).getDate();
   const diff = 35 - daysBefore - daysOfTheMonth;
@@ -70,7 +66,7 @@ const daysMonthAfter = (date: Date): Date[] => {
   return daysAfterMonth;
 };
 
-export const generateDates = (date: Date): Date[] => [
+export const generateDates = (date) => [
   ...daysMonthBefore(date),
   ...daysMonth(date),
   ...daysMonthAfter(date),

@@ -1,3 +1,9 @@
+.calendar{
+  width: 100%;
+  min-width: 1000px;
+  overflow: auto;
+}
+
 .parent {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -11,6 +17,10 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   text-align: center;
+}
+
+.dayNames>div{
+  width: 235px;
 }
 
 .dayNamesRow {
@@ -72,7 +82,6 @@ textarea {
     gap: 20px;
     justify-content: center;
     font-size: 32px;
-    width: 150%;
   }
 }
 @media only screen and (max-width: 1920px) and (min-width: 1281px) {

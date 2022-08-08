@@ -6,13 +6,7 @@ import {
 } from "../../../actions/Calendar/Header/calendarHeader";
 import "./CalendarHeader.css";
 
-interface Ṕroperties {
-  date: Date;
-  setDate: (date: Date) => void;
-  setDays: (dates: Date[]) => void;
-}
-
-export const CalendarHeader = ({ date, setDate, setDays }: Ṕroperties) => {
+export const CalendarHeader = ({ date, setDate, setDays }) => {
   return (
     <div className="calendar-header">
       <div
